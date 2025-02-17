@@ -1,0 +1,34 @@
+{
+  "name": "veramo-agent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@veramo/core": "^6.0.0",
+    "@veramo/credential-w3c": "^6.0.0",
+    "@veramo/data-store": "^6.0.0",
+    "@veramo/did-manager": "^6.0.0",
+    "@veramo/did-provider-ethr": "^6.0.0",
+    "@veramo/did-resolver": "^6.0.0",
+    "@veramo/key-manager": "^6.0.0",
+    "@veramo/kms-local": "^6.0.0",
+    "@ethsign/sp-sdk": "0.10.3",
+    "ethr-did-resolver": "^11.0.3",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.20",
+    "web-did-resolver": "^2.0.27"
+  },
+  "type": "module",
+  "scripts": {
+  "create-identifier": "node --loader ts-node/esm ./src/create-identifier.ts",
+  "create-credential": "node --loader ts-node/esm ./src/create-credential.ts",
+  "verify-credential": "node --loader ts-node/esm ./src/verify-credential.ts",
+  "list-identifiers": "node --loader ts-node/esm ./src/list-identifiers.ts",
+  "delete-identifier": "node --loader ts-node/esm ./src/delete-identifier.ts",
+  "resolve-identifier": "node --loader ts-node/esm ./src/resolve-identifier.ts"
+  }
+}
