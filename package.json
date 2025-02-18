@@ -24,11 +24,11 @@
   },
   "type": "module",
   "scripts": {
-  "create-identifier": "node --loader ts-node/esm ./src/create-identifier.ts",
-  "create-credential": "node --loader ts-node/esm ./src/create-credential.ts",
-  "verify-credential": "node --loader ts-node/esm ./src/verify-credential.ts",
-  "list-identifiers": "node --loader ts-node/esm ./src/list-identifiers.ts",
-  "delete-identifier": "node --loader ts-node/esm ./src/delete-identifier.ts",
-  "resolve-identifier": "node --loader ts-node/esm ./src/resolve-identifier.ts"
+    "create-identifier": "node --loader ts-node/esm ./src/create-identifier.ts",
+    "create-credential": "node --loader ts-node/esm ./src/create-credential.ts",
+    "verify-credential": "node --loader ts-node/esm ./src/verify-credential.ts",
+    "list-identifiers": "node --loader ts-node/esm ./src/list-identifiers.ts",
+    "delete-identifier": "node --loader ts-node/esm ./src/delete-identifier.ts",
+    "resolve-identifier": "node --loader ts-node/esm ./src/resolve-identifier.ts"
   }
 }

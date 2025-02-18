@@ -1,5 +1,5 @@
 import { agent } from './veramo/setup.js'
-import {attestCredential} from './SP/attestation.js'
+import { attestCredential } from './SP/attestation.js'
 async function main() {
   const identifier = await agent.didManagerGetByAlias({ alias: 'default' })
 

@@ -1,12 +1,12 @@
 // filepath: /Users/wangkaixuan/Projects/SmartContract/sign-protocol-evm/scripts/register.ts
 import { ethers } from "ethers";
-import {provider, privateKey, wallet} from "./morphHolesky/setup.js"
+import { provider, privateKey, wallet } from "./morphHolesky/setup.js"
 import { VerifiableCredential } from "@veramo/core";
 // import * as dotenv from "dotenv";
 // dotenv.config();
 const registrant = wallet.address;
 const contractAddress = "0x48045E251965c422095E5F9B721317f7d0bC30D6"; // 替换为您的合约地址
-const abi = [ {
+const abi = [{
     "inputs": [
         {
             "components": [
@@ -175,20 +175,20 @@ enum DataLocation {
 }
 
 export async function attestCredential(credential: VerifiableCredential) {
-
-    // 将 JSON 转换为字符串
+    // Convert JSON to string
     const credentialJson = JSON.stringify(credential);
 
-    // 使用 TextEncoder 转换为字节数组
+    // Convert to byte array using TextEncoder
     const encoder = new TextEncoder();
     const credentialBytesArray: Uint8Array = encoder.encode(credentialJson);
 
-    // 将字节数组转换为十六进制字符串
+    // Convert byte array to hex string
     let credentialBytes = '0x';
     for (let i = 0; i < credentialBytesArray.length; i++) {
-        credentialBytes += credentialBytesArray[i].toString(16).padStart(2, '0'); // 将每个字节转换为 2 位十六进制
+        credentialBytes += credentialBytesArray[i].toString(16).padStart(2, '0'); // Convert each byte to 2-digit hex
     }
-      // 计算一个月后的时间戳
+
+    // Calculate timestamp one month from now
     const currentDate = new Date();
     const validUntilDate = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
     const validUntilTimestamp = Math.floor(validUntilDate.getTime() / 1000);
@@ -205,40 +205,40 @@ export async function attestCredential(credential: VerifiableCredential) {
         recipients: [],
         data: credentialBytes,
     }
-  const indexingKey = wallet.address;
-  const delegateSignature = "0x"; 
-  const extraData = "0x";
-    console.log("Attesting credential...",attestation, indexingKey, delegateSignature, extraData);
-  try {
-    const tx = await contract.attest(attestation,indexingKey, delegateSignature,extraData);
-    await tx.wait();
-    console.log("Attestation Success:", tx);
-  } catch (error) {
-    console.error("Attestation Error:", error);
-  }
+    const indexingKey = wallet.address;
+    const delegateSignature = "0x";
+    const extraData = "0x";
+
+    console.log("Attesting credential...", attestation, indexingKey, delegateSignature, extraData);
+    try {
+        const tx = await contract.attest(attestation, indexingKey, delegateSignature, extraData);
+        await tx.wait();
+        console.log("Attestation Success:", tx);
+    } catch (error) {
+        console.error("Attestation Error:", error);
+    }
 }
 
 export async function getAttestation(attestationId: any) {
     const attestation = await contract.getAttestation(attestationId);
     const credentialString = Buffer.from(attestation.data).toString();
-    // 1. 移除 "0x" 前缀
+
+    // 1. Remove "0x" prefix
     const credentialHex = credentialString.slice(2);
 
-    // 2. 将十六进制字符串转换为字节数组
+    // 2. Convert hex string to byte array
     const credentialbyteArray = new Uint8Array(credentialHex.length / 2);
     for (let i = 0; i < credentialHex.length; i += 2) {
         credentialbyteArray[i / 2] = parseInt(credentialHex.substr(i, 2), 16);
     }
 
-    // 3. 使用 TextDecoder 解码为字符串
+    // 3. Use TextDecoder to convert to string
     const decoder = new TextDecoder();
     const credentialRawString = decoder.decode(credentialbyteArray);
 
-    // 4. 解析为 JSON 对象
+    // 4. Parse to JSON object
     const jsonObjectFromHex = JSON.parse(credentialRawString);
 
     console.log("Credential:", jsonObjectFromHex);
     return jsonObjectFromHex;
 }
-
-getAttestation(2);
