@@ -1,11 +1,9 @@
-// filepath: /Users/wangkaixuan/Projects/SmartContract/sign-protocol-evm/scripts/register.ts
 import { ethers } from "ethers";
 import { provider, privateKey, wallet } from "./morphHolesky/setup.js"
 import { VerifiableCredential } from "@veramo/core";
-// import * as dotenv from "dotenv";
-// dotenv.config();
+
 const registrant = wallet.address;
-const contractAddress = "0x48045E251965c422095E5F9B721317f7d0bC30D6"; // 替换为您的合约地址
+const contractAddress = "0x48045E251965c422095E5F9B721317f7d0bC30D6"; // smart contract address
 const abi = [{
     "inputs": [
         {
@@ -209,7 +207,6 @@ export async function attestCredential(credential: VerifiableCredential) {
     const delegateSignature = "0x";
     const extraData = "0x";
 
-    console.log("Attesting credential...", attestation, indexingKey, delegateSignature, extraData);
     try {
         const tx = await contract.attest(attestation, indexingKey, delegateSignature, extraData);
         await tx.wait();
